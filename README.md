@@ -28,6 +28,22 @@ Use this dependency in your maven config
   <version>0.1.0</version>
 </dependency>
 ```
+## Use it!
+```java
+PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI("http://pi.hole:81"));
+
+PHStatistics phStatistics = piHoleClient.statisticApi().getStatistics();
+
+// This object contains properties with the statistics info
+// hStatistics.adsBlockedToday
+// phStatistics.adsPercentageToday
+// phStatistics.dnsQueriesToday
+// phStatistics.domainsBeingBlocked
+// phStatistics.queriesCached
+// phStatistics.queriesForwarded
+// phStatistics.uniqueDomains
+```
 
 ## Installation
 Easy peasy
