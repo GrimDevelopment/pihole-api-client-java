@@ -32,7 +32,7 @@
 
   <groupId>com.github.ppadial</groupId>
   <artifactId>pihole-api-client</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.2.0</version>
 
   <name>Pi Hole api client for Java</name>
   <description>A pihole API client for java projects</description>
@@ -50,7 +50,7 @@
     <connection>scm:git:git@github.com:ppadial/pihole-api-client-java.git</connection>
     <developerConnection>scm:git:git@github.com:ppadial/pihole-api-client-java.git</developerConnection>
     <url>https://github.com/ppadial/pihole-api-client-java</url>
-    <tag>HEAD</tag>
+    <tag>pihole-api-client-0.2.0</tag>
   </scm>
 
   <repositories>
