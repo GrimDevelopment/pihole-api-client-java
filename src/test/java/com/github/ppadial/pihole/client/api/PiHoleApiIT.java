@@ -61,7 +61,7 @@ public class PiHoleApiIT {
 
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void getQueryTypes() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager
@@ -72,7 +72,7 @@ public class PiHoleApiIT {
     assertThat(queryTypes).isNotNull();
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void overTimeData10mins() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI(SERVER));
@@ -82,7 +82,7 @@ public class PiHoleApiIT {
     assertThat(phOverTimeData).isNotNull();
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void recentBlocked() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager
@@ -93,7 +93,7 @@ public class PiHoleApiIT {
     assertThat(recentBlocked).isNotNull().isNotEmpty();
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void topItems() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager
@@ -104,7 +104,7 @@ public class PiHoleApiIT {
     assertThat(phTopItems).isNotNull();
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void topClients() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager
@@ -115,7 +115,7 @@ public class PiHoleApiIT {
     assertThat(phTopclients).isNotNull();
   }
 
-  @Test(enabled = true)
+  @Test(enabled = false)
   public void getQuerySources() throws Exception {
     PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
     PiHoleClient piHoleClient = piHoleClientManager
