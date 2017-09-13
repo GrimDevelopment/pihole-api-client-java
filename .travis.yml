@@ -1,0 +1,23 @@
+language: java
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk8
+
+install: true
+
+cache:
+  directories:
+    - $HOME/.m2
+
+before_script:
+  - git config user.name "$COMMIT_AUTHOR_NAME"
+  - git config user.email "$COMMIT_AUTHOR_EMAIL"
+  - export COMMIT_MESSAGE=`git log -1 --oneline`
+
+script:
+  - mvn -Psonarcloud.io,coveralls.io -D maven.build.verbose=true clean install
+
+#after_success:
+#  - mvn -Pcoveralls.io coveralls:report
+#  - mvn -Psonarcloud.io sonar:sonar
