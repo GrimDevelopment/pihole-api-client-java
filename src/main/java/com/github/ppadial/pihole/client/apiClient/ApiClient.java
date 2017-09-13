@@ -44,21 +44,9 @@ import org.slf4j.LoggerFactory;
 public class ApiClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
-  private static Long MIN_MS_BETWEEN_RETRIES = Long.valueOf(250) /* 0,25s */;
-  private static Long MAX_MS_BETWEEN_RETRIES = Long.valueOf(60000) /* 1m */;
-  private static Integer MIN_RETRY_NUM = 1;
-  private static Integer MAX_RETRY_NUM = 20;
-  private static Long MIN_FLOOD_VALUE = Long.valueOf(1000); /* 1s */
-  private static Long MAX_FLOOD_VALUE = Long.valueOf(60000); /* 1m */
   private HttpClient httpClient;
   private String url;
-  private String username;
-  private String password;
-  private boolean retryOnFailureEnabled = false; /*disabled by default*/
-  private Integer numOfRetries = MIN_RETRY_NUM;
-  private Long millisBetweenRetries = MIN_MS_BETWEEN_RETRIES;
-  private boolean antiFloodEnabled = false; /*disabled by default*/
-  private Long antiFloodValue = MIN_FLOOD_VALUE;
+  private String token;
 
   /**
    * Creates a new instance of the object.
@@ -66,17 +54,24 @@ public class ApiClient {
    * @param url url of the service
    * @since 0.1.0
    */
-  public ApiClient(String url) {
+  public ApiClient(String url, String token) {
     try {
-      LOG.debug(":: Constructor method ::");
-      this.url = url + "/admin/api.php";
-
+      LOG.trace(":: Constructor method ::");
+      this.token = token;
+      this.url = url + "/admin/api.php?";
+      if (token != null) {
+        this.url += "auth=" + token + "&";
+      }
       httpClient = HttpClientBuilder.create().build();
       LOG.debug("Created API client for {}", url);
     } catch (Exception e) {
       LOG.error(e.getMessage());
       throw new RuntimeException(e);
     }
+  }
+
+  public ApiClient(String url) {
+    this(url, null);
   }
 
   /**
@@ -88,7 +83,7 @@ public class ApiClient {
    * @since 0.1.0
    */
   public ApiResponse doGet(String uriSuffix) throws ApiCallException {
-    LOG.debug("Invoking {}", uriSuffix);
+    LOG.trace("Invoking {}", uriSuffix);
     final HttpGet httpGet = new HttpGet(url + uriSuffix);
     return doRequest(httpGet);
   }
@@ -103,13 +98,12 @@ public class ApiClient {
    * @since 0.1.0
    */
   public ApiResponse doPost(String uriSuffix, String jsonData) throws ApiCallException {
-    LOG.debug("Invoking {} with jsonData {}", uriSuffix, jsonData);
+    LOG.trace("Invoking {} with jsonData {}", uriSuffix, jsonData);
     final HttpPost httpPost = new HttpPost(url + uriSuffix);
     // If we have json body data to send
     if (!Strings.isNullOrEmpty(jsonData)) {
       final StringEntity reqEntity;
       try {
-
         reqEntity = new StringEntity(jsonData);
         reqEntity.setContentType("application/json");
       } catch (UnsupportedEncodingException unsupportedEncodingException) {
@@ -129,26 +123,27 @@ public class ApiClient {
    * @since 0.1.0
    */
   public ApiResponse doPost(String uriSuffix) throws ApiCallException {
-    LOG.debug("Invoking {} without body", uriSuffix);
+    LOG.trace("Invoking {} without body", uriSuffix);
     final HttpPost httpPost = new HttpPost(url + uriSuffix);
     return doRequest(httpPost);
   }
 
   private ApiResponse doRequest(HttpUriRequest httpUriRequest) throws ApiCallException {
-    LOG.debug("method called with AntiFlood={} RetryOnFailure={}", antiFloodEnabled,
-        retryOnFailureEnabled);
+    LOG.trace("doRequest called");
     ApiResponse apiResponse;
     HttpResponse httpResponse;
-    int numOfExecutions = 0;
 
     try {
-      //do {
+      LOG.debug("Request: {}", httpUriRequest.getURI().toString());
       httpResponse = httpClient.execute(httpUriRequest);
       apiResponse = ApiResponseMapper.from(httpResponse);
+      LOG.debug("Response: {}", apiResponse.getBody());
     } catch (Exception exception) {
       throw new ApiCallException(exception.getCause());
     }
 
     return apiResponse;
   }
+
+  public Boolean hashToken() { return (!Strings.isNullOrEmpty(token)); }
 }

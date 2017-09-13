@@ -66,6 +66,7 @@ public abstract class PiHoleServiceBase {
     objectMapper = new ObjectMapper();
     objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
     //TODO: should probably remove this
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
   }

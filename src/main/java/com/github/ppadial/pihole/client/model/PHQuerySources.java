@@ -21,44 +21,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.ppadial.pihole.client;
+package com.github.ppadial.pihole.client.model;
 
-import com.github.ppadial.pihole.client.api.PiHoleApi;
-import com.github.ppadial.pihole.client.apiClient.ApiClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+import java.util.Map;
 
 /**
- * PiHole Client for endpoints described at <a href="https://github.com/pi-hole/pi-hole#api"> PiHole
- * Api</a>.
+ * TopClients api call response.
  *
  * @author Paulino Padial
- * @since 0.1.0
+ * @since 0.1.1
  */
-public class PiHoleClient {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PiHoleClient.class);
-
-  //underlying Api apiClient
-  private ApiClient apiClient;
-
-  /**
-   * Creates an instance of the apiClient and setups up required state.
-   *
-   * @param apiClient the api client to use
-   */
-  public PiHoleClient(ApiClient apiClient) {
-    LOG.debug(":: Constructor:: called");
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Get access to the statistics Api functions.
-   *
-   * @return access to case functions catalog
-   */
-  public PiHoleApi api() {
-    return new PiHoleApi(apiClient);
-  }
-
+public class PHQuerySources {
+  @JsonProperty("top_sources")
+  @JsonSerialize(include = Inclusion.NON_NULL)
+  public Map<String, Long> topSources;
 }

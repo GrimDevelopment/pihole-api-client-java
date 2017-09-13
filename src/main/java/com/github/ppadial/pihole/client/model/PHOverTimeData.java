@@ -24,30 +24,18 @@
 package com.github.ppadial.pihole.client.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Statistics representation in Pi Hole.
+ * Query Types api call response.
  *
  * @author Paulino Padial
- * @see <a href="https://github.com/pi-hole/pi-hole#api">statistics</a>
- * @since 0.1.0
+ * @since 0.1.1
  */
-public class PHStatistics {
-
-  @JsonProperty("domains_being_blocked")
-  public String domainsBeingBlocked;
-  @JsonProperty("dns_queries_today")
-  public String dnsQueriesToday;
-  @JsonProperty("ads_blocked_today")
-  public String adsBlockedToday;
-  @JsonProperty("ads_percentage_today")
-  public String adsPercentageToday;
-  @JsonProperty("unique_domains")
-  public String uniqueDomains;
-  @JsonProperty("queries_forwarded")
-  public String queriesForwarded;
-  @JsonProperty("queries_cached")
-  public String queriesCached;
-  @JsonProperty("unique_clients")
-  public String uniqueClients;
+public class PHOverTimeData {
+  @JsonProperty("domains_over_time")
+  public Map<String, Long> domainsOverTime;
+  @JsonProperty("ads_over_time")
+  public Map<String, Long> adsOverTime;
 }
