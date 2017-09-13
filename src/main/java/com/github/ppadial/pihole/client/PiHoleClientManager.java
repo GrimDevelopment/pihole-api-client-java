@@ -35,7 +35,23 @@ import java.net.URI;
 public class PiHoleClientManager {
 
   /**
-   * Gets a pihole client.
+   * Gets a pihole client with an auth token.
+   *
+   * @param piholeUri pihole base url (http://your.domain)
+   * @param token an authentication token
+   * @return a pihole client
+   * @since 0.1.0
+   */
+  public PiHoleClient getClient(final URI piholeUri, final String token) {
+
+    // Creates the pihole Client based on the configuration
+    ApiClient apiClient = new ApiClient(piholeUri.toString(), token);
+
+    return new PiHoleClient(apiClient);
+  }
+
+  /**
+   * Gets a pihole client with no authentication.
    *
    * @param piholeUri pihole base url (http://your.domain)
    * @return a pihole client
@@ -44,7 +60,7 @@ public class PiHoleClientManager {
   public PiHoleClient getClient(final URI piholeUri) {
 
     // Creates the pihole Client based on the configuration
-    ApiClient apiClient = new ApiClient(piholeUri.toString());
+    ApiClient apiClient = new ApiClient(piholeUri.toString(), null);
 
     return new PiHoleClient(apiClient);
   }

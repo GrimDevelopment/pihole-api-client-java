@@ -196,5 +196,10 @@
       <artifactId>jackson-dataformat-xml</artifactId>
       <version>${dep.jackson-dataformat-xml.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${dep.jackson-core.version}</version>
+    </dependency>
   </dependencies>
 </project>

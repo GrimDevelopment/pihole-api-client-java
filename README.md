@@ -15,9 +15,21 @@ All the information about:
 * Maven commands & targets available
 
 ## PiHole API Modules implementation status
-| Module          | Status          | Notes | Reference |
-| :---            | :----           | :---        | :--- |
-| Admin           | All Implemented | | |
+| Module                      | Implemented | Require Auth  | PARAMS  |  
+| :---                        | :---:       | :---:         | :---    |
+| summary                     | YES         | NO            | NO      |
+| summaryRaw                  | YES         | NO            | NO      |
+| topItems                    | YES         | YES           | NO      |
+| overTimeData10mins          | YES         | NO            | NO      |
+| recentBlocked               | YES         | NO            | NO      |
+| topClients                  | YES         | YES           | NO      |
+| getQuerySources             | YES         | YES           | NO      |
+| getForwardDestinations      | NO          | YES           |         |
+| getQueryTypes               | YES         | YES           | NO      |
+| getAllQueries               | NO          | YES           | optional params: from, to, domain, client |
+| overTimeDataForwards        | NO          | YES           | NO      |
+| getForwardDestinationNames  | NO          | YES           | NO      |
+| overTimeDataQueryTypes      | NO          | YES           | NO      |
 
 ## Getting Started
 Use this dependency in your maven config
@@ -31,9 +43,9 @@ Use this dependency in your maven config
 ## Use it!
 ```java
 PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
-PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI("http://pi.hole:81"));
+PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI("http://pi.hole:81"), "AUTH TOKEN");
 
-PHStatistics phStatistics = piHoleClient.statisticApi().getStatistics();
+PHStatistics phStatistics = piHoleClient.api().summary();
 
 // This object contains properties with the statistics info
 // hStatistics.adsBlockedToday
@@ -44,6 +56,8 @@ PHStatistics phStatistics = piHoleClient.statisticApi().getStatistics();
 // phStatistics.queriesForwarded
 // phStatistics.uniqueDomains
 ```
+
+If you want to see an example of each available method usage, please look at the [Integration Tests class](src/test/java/com/github/ppadial/pihole/client/api/PiHoleApiIT.java).
 
 ## Installation
 Easy peasy
@@ -70,9 +84,5 @@ Paulino Padial – [@paulinopadial](https://twitter.com/paulinopadial) –
 ## License
 
 MIT License - see the [LICENSE file](LICENSE) in the source distribution
-
-## Credits
-
-TODO: Write credits
 
 

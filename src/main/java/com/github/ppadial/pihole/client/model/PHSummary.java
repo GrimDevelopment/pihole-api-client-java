@@ -21,44 +21,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.ppadial.pihole.client;
+package com.github.ppadial.pihole.client.model;
 
-import com.github.ppadial.pihole.client.api.PiHoleApi;
-import com.github.ppadial.pihole.client.apiClient.ApiClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * PiHole Client for endpoints described at <a href="https://github.com/pi-hole/pi-hole#api"> PiHole
- * Api</a>.
+ * Summary api call response.
  *
  * @author Paulino Padial
  * @since 0.1.0
  */
-public class PiHoleClient {
+public class PHSummary {
 
-  private static final Logger LOG = LoggerFactory.getLogger(PiHoleClient.class);
-
-  //underlying Api apiClient
-  private ApiClient apiClient;
-
-  /**
-   * Creates an instance of the apiClient and setups up required state.
-   *
-   * @param apiClient the api client to use
-   */
-  public PiHoleClient(ApiClient apiClient) {
-    LOG.debug(":: Constructor:: called");
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Get access to the statistics Api functions.
-   *
-   * @return access to case functions catalog
-   */
-  public PiHoleApi api() {
-    return new PiHoleApi(apiClient);
-  }
-
+  @JsonProperty("domains_being_blocked")
+  public String domainsBeingBlocked;
+  @JsonProperty("dns_queries_today")
+  public String dnsQueriesToday;
+  @JsonProperty("ads_blocked_today")
+  public String adsBlockedToday;
+  @JsonProperty("ads_percentage_today")
+  public String adsPercentageToday;
+  @JsonProperty("unique_domains")
+  public String uniqueDomains;
+  @JsonProperty("queries_forwarded")
+  public String queriesForwarded;
+  @JsonProperty("queries_cached")
+  public String queriesCached;
+  @JsonProperty("unique_clients")
+  public String uniqueClients;
 }
