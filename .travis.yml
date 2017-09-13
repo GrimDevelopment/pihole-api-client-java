@@ -16,7 +16,7 @@ before_script:
   - export COMMIT_MESSAGE=`git log -1 --oneline`
 
 script:
-  - mvn -Psonarcloud.io,coveralls.io -D maven.build.verbose=true clean install
+  - mvn -D maven.build.verbose=true clean install
 
 #after_success:
 #  - mvn -Pcoveralls.io coveralls:report
