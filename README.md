@@ -24,12 +24,12 @@ All the information about:
 | recentBlocked               | YES         | NO            | NO      |
 | topClients                  | YES         | YES           | NO      |
 | getQuerySources             | YES         | YES           | NO      |
-| getForwardDestinations      | NO          | YES           |         |
+| getForwardDestinations      | YES         | YES           | NO      |
 | getQueryTypes               | YES         | YES           | NO      |
-| getAllQueries               | NO          | YES           | optional params: from, to, domain, client |
-| overTimeDataForwards        | NO          | YES           | NO      |
-| getForwardDestinationNames  | NO          | YES           | NO      |
-| overTimeDataQueryTypes      | NO          | YES           | NO      |
+| getAllQueries               | YES         | YES           | optional params: from, until, domain, client |
+| overTimeDataForwards        | YES         | YES           | NO      |
+| getForwardDestinationNames  | YES         | YES           | NO      |
+| overTimeDataQueryTypes      | YES         | YES           | NO      |
 
 ## Getting Started
 Use this dependency in your maven config
@@ -37,9 +37,10 @@ Use this dependency in your maven config
 <dependency>
   <groupId>com.github.ppadial</groupId>
   <artifactId>pihole-api-client</artifactId>
-  <version>0.1.0</version>
+  <version>... last version ...</version>
 </dependency>
 ```
+
 ## Use it!
 ```java
 PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
@@ -75,14 +76,12 @@ Wanna use Command line?
 see the [CONTRIBUTING file](CONTRIBUTING.md) in the source distribution
 
 ## Meta
-
 Paulino Padial – [@paulinopadial](https://twitter.com/paulinopadial) – 
 
 [https://github.com/ppadial/pihole-api-client-java](https://github.com/ppadial/)
 
 
 ## License
-
 MIT License - see the [LICENSE file](LICENSE) in the source distribution
 
 
