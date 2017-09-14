@@ -24,12 +24,12 @@ All the information about:
 | recentBlocked               | YES         | NO            | NO      |
 | topClients                  | YES         | YES           | NO      |
 | getQuerySources             | YES         | YES           | NO      |
-| getForwardDestinations      | NO          | YES           | NO      |
+| getForwardDestinations      | YES         | YES           | NO      |
 | getQueryTypes               | YES         | YES           | NO      |
-| getAllQueries               | NO          | YES           | optional params: from, to, domain, client |
-| overTimeDataForwards        | NO          | YES           | NO      |
-| getForwardDestinationNames  | NO          | YES           | NO      |
-| overTimeDataQueryTypes      | NO          | YES           | NO      |
+| getAllQueries               | YES         | YES           | optional params: from, until, domain, client |
+| overTimeDataForwards        | YES         | YES           | NO      |
+| getForwardDestinationNames  | YES         | YES           | NO      |
+| overTimeDataQueryTypes      | YES         | YES           | NO      |
 
 ## Getting Started
 Use this dependency in your maven config

@@ -27,7 +27,11 @@ import com.github.ppadial.pihole.client.HttpStatusCode;
 import com.github.ppadial.pihole.client.PiHoleException;
 import com.github.ppadial.pihole.client.apiClient.ApiClient;
 import com.github.ppadial.pihole.client.apiClient.ApiResponse;
+import com.github.ppadial.pihole.client.model.PHForwardDestinations;
 import com.github.ppadial.pihole.client.model.PHOverTimeData;
+import com.github.ppadial.pihole.client.model.PHOverTimeDataForwards;
+import com.github.ppadial.pihole.client.model.PHOverTimeDataQueryTypes;
+import com.github.ppadial.pihole.client.model.PHQueries;
 import com.github.ppadial.pihole.client.model.PHQuerySources;
 import com.github.ppadial.pihole.client.model.PHQueryTypes;
 import com.github.ppadial.pihole.client.model.PHSummary;
@@ -79,8 +83,46 @@ public final class PiHoleApi extends PiHoleServiceBase {
     return phStatistics;
   }
 
-  public final void overTimeData() throws PiHoleException {
+  public final PHOverTimeDataForwards overTimeDataForwards() throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHOverTimeDataForwards overTimeDataForwards;
 
+    // Do the query
+    apiResponse = get("overTimeDataForwards");
+
+    // Handle response
+    overTimeDataForwards = handleApiResponse(apiResponse, PHOverTimeDataForwards.class, null);
+
+    // return the user if everything is Ok
+    return overTimeDataForwards;
+  }
+
+  public final PHOverTimeDataQueryTypes overTimeDataQueryTypes() throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHOverTimeDataQueryTypes overTimeDataQueryTypes;
+
+    // Do the query
+    apiResponse = get("overTimeDataQueryTypes");
+
+    // Handle response
+    overTimeDataQueryTypes = handleApiResponse(apiResponse, PHOverTimeDataQueryTypes.class, null);
+
+    // return the user if everything is Ok
+    return overTimeDataQueryTypes;
+  }
+
+  public final PHForwardDestinations getForwardDestinationNames() throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHForwardDestinations phForwardDestinations;
+
+    // Do the query
+    apiResponse = get("getForwardDestinationNames");
+
+    // Handle response
+    phForwardDestinations = handleApiResponse(apiResponse, PHForwardDestinations.class, null);
+
+    // return the user if everything is Ok
+    return phForwardDestinations;
   }
 
   public final PHTopItems topItems() throws PiHoleException {
@@ -125,10 +167,6 @@ public final class PiHoleApi extends PiHoleServiceBase {
     return phQuerySources;
   }
 
-  public final void recentItems() throws PiHoleException {
-
-  }
-
   public final PHQueryTypes getQueryTypes() throws PiHoleException {
     final ApiResponse apiResponse;
     final PHQueryTypes phQueryTypes;
@@ -143,12 +181,74 @@ public final class PiHoleApi extends PiHoleServiceBase {
     return phQueryTypes;
   }
 
-  public final void forwardDestinations() throws PiHoleException {
+  public final PHForwardDestinations getForwardDestinations() throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHForwardDestinations phForwardDestinations;
 
+    // Do the query
+    apiResponse = get("getForwardDestinations");
+
+    // Handle response
+    phForwardDestinations = handleApiResponse(apiResponse, PHForwardDestinations.class, null);
+
+    // return the user if everything is Ok
+    return phForwardDestinations;
   }
 
-  public final void allQueries() throws PiHoleException {
+  public final PHQueries getAllQueries() throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHQueries queries;
 
+    // Do the query
+    apiResponse = get("getAllQueries");
+
+    // Handle response
+    queries = handleApiResponse(apiResponse, PHQueries.class, null);
+
+    // return the user if everything is Ok
+    return queries;
+  }
+
+  public final PHQueries getAllQueriesByDomain(String domain) throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHQueries queries;
+
+    // Do the query
+    apiResponse = get("getAllQueries&domain=" + domain);
+
+    // Handle response
+    queries = handleApiResponse(apiResponse, PHQueries.class, null);
+
+    // return the user if everything is Ok
+    return queries;
+  }
+
+  public final PHQueries getAllQueriesByClient(String client) throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHQueries queries;
+
+    // Do the query
+    apiResponse = get("getAllQueries&client=" + client);
+
+    // Handle response
+    queries = handleApiResponse(apiResponse, PHQueries.class, null);
+
+    // return the user if everything is Ok
+    return queries;
+  }
+
+  public final PHQueries getAllQueriesBetweenTimeStamp(Long from, Long until) throws PiHoleException {
+    final ApiResponse apiResponse;
+    final PHQueries queries;
+
+    // Do the query
+    apiResponse = get("getAllQueries&from=" + String.valueOf(from) + "&until=" + String.valueOf(until));
+
+    // Handle response
+    queries = handleApiResponse(apiResponse, PHQueries.class, null);
+
+    // return the user if everything is Ok
+    return queries;
   }
 
   public final PHOverTimeData overTimeData10mins() throws PiHoleException {
@@ -156,7 +256,7 @@ public final class PiHoleApi extends PiHoleServiceBase {
     final PHOverTimeData phOverTimeData;
 
     // Do the query
-    apiResponse = get("?overTimeData10mins");
+    apiResponse = get("overTimeData10mins");
 
     // Handle response
     phOverTimeData = handleApiResponse(apiResponse, PHOverTimeData.class, null);

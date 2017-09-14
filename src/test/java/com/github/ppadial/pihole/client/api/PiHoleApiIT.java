@@ -27,13 +27,18 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.github.ppadial.pihole.client.PiHoleClient;
 import com.github.ppadial.pihole.client.PiHoleClientManager;
+import com.github.ppadial.pihole.client.model.PHForwardDestinations;
 import com.github.ppadial.pihole.client.model.PHOverTimeData;
+import com.github.ppadial.pihole.client.model.PHOverTimeDataForwards;
+import com.github.ppadial.pihole.client.model.PHOverTimeDataQueryTypes;
+import com.github.ppadial.pihole.client.model.PHQueries;
 import com.github.ppadial.pihole.client.model.PHQuerySources;
 import com.github.ppadial.pihole.client.model.PHQueryTypes;
 import com.github.ppadial.pihole.client.model.PHSummary;
 import com.github.ppadial.pihole.client.model.PHTopItems;
 import com.github.ppadial.pihole.client.model.PHTopClients;
 import java.net.URI;
+import org.apache.http.auth.AUTH;
 import org.testng.annotations.Test;
 
 public class PiHoleApiIT {
@@ -59,6 +64,26 @@ public class PiHoleApiIT {
     assertThat(phStatistics.uniqueDomains).isNotBlank().isNotEmpty();
     assertThat(phStatistics.uniqueClients).isNotBlank().isNotEmpty();
 
+  }
+
+  @Test(enabled = false)
+  public void type() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI(SERVER));
+
+    String type = piHoleClient.api().type();
+
+    assertThat(type).isNotEmpty().isNotBlank().isNotJavaBlank();
+  }
+
+  @Test(enabled = false)
+  public void version() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager.getClient(new URI(SERVER));
+
+    String version = piHoleClient.api().version();
+
+    assertThat(version).isNotEmpty().isNotBlank().isNotJavaBlank();
   }
 
   @Test(enabled = false)
@@ -124,5 +149,93 @@ public class PiHoleApiIT {
     PHQuerySources querySources = piHoleClient.api().getQuerySources();
 
     assertThat(querySources).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getForwardDestinations() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHForwardDestinations forwardDestinations = piHoleClient.api().getForwardDestinations();
+
+    assertThat(forwardDestinations).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void overTimeDataForwards() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHOverTimeDataForwards overTimeDataForwards = piHoleClient.api().overTimeDataForwards();
+
+    assertThat(overTimeDataForwards).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getForwardDestinationNames() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHForwardDestinations forwardDestinations = piHoleClient.api().getForwardDestinationNames();
+
+    assertThat(forwardDestinations).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void overTimeDataQueryTypes() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHOverTimeDataQueryTypes overTimeDataQueryTypes = piHoleClient.api().overTimeDataQueryTypes();
+
+    assertThat(overTimeDataQueryTypes).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getAllQueries() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHQueries queries = piHoleClient.api().getAllQueries();
+
+    assertThat(queries).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getAllQueriesByDomain() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHQueries queries = piHoleClient.api().getAllQueriesByDomain("s.youtube.com");
+
+    assertThat(queries).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getAllQueriesByClient() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHQueries queries = piHoleClient.api().getAllQueriesByClient("192.168.1.102");
+
+    assertThat(queries).isNotNull();
+  }
+
+  @Test(enabled = false)
+  public void getAllQueriesBetweenTimeStamp() throws Exception {
+    PiHoleClientManager piHoleClientManager = new PiHoleClientManager();
+    PiHoleClient piHoleClient = piHoleClientManager
+        .getClient(new URI(SERVER), AUTH_TOKEN);
+
+    PHQueries queries = piHoleClient.api().getAllQueriesBetweenTimeStamp(1505402266L, 1505403422L);
+
+    assertThat(queries).isNotNull();
   }
 }
