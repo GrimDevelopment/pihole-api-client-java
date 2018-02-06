@@ -25,9 +25,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.ppadial</groupId>
-    <artifactId>parent-pom</artifactId>
-    <version>1.10</version>
+    <groupId>com.github.ppadial.mavenbase</groupId>
+    <artifactId>pom</artifactId>
+    <version>1</version>
   </parent>
 
   <groupId>com.github.ppadial</groupId>
